@@ -8,9 +8,10 @@ if (isset($_POST['id']) && isset($_POST['usuario_id']) && isset($_POST['curso_id
   $id = $_POST['id'];
   $usuario_id = $_POST['usuario_id'];
   $curso_id = $_POST['curso_id'];
+  $emision = date("Y-m-d", strtotime($_POST['emision']));
 
   // Armamos la consulta de actualización
-  $query = "UPDATE certificados SET id_usuario = '$usuario_id', id_curso = '$curso_id' WHERE id = '$id'";
+  $query = "UPDATE certificados SET id_usuario = '$usuario_id', id_curso = '$curso_id', emision = '$emision'  WHERE id = '$id'";
 
   // Ejecutamos la consulta
   if (mysqli_query($conexion, $query)) {

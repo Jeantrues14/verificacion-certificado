@@ -10,6 +10,7 @@
     Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
 
+
   // Script para rellenar el formulario del modal Modificar Curso
   $(document).ready(function() {
     // Cuando se haga clic en el botón de modificar
@@ -18,12 +19,14 @@
       var id = button.data('id') // Recibe el ID del certificado
       var idUsuario = button.data('usuario') // Recibe el ID del usuario
       var idCurso = button.data('curso') // Recibe el ID del curso
+      var emision = button.data('emision') // Recibe la fecha de emisión
 
       // Asigna los datos al formulario del modal
       var modal = $(this)
       modal.find('#modalModificarId').val(id)
       modal.find('#modalModificarUsuario').val(idUsuario)
       modal.find('#modalModificarCurso').val(idCurso)
+      modal.find('#modalModificarEmision').val(emision.replace(/(\d+)-(\d+)-(\d+)/g, '$3-$2-$1'));
     })
   });
   
@@ -84,3 +87,4 @@
       btnConfirmarEliminacion.href = 'componentes/eliminar-certificado.php?id=' + idCertificado;
     });
   });
+  

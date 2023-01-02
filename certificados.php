@@ -34,7 +34,7 @@ if (isset($_SESSION['logged_in'])) {
   // Establecemos la conexión con la base de datos
   include "database/conexion.php";
                     
-  $resultcertificados = mysqli_query($conexion, 'SELECT c.id , c.id_usuario, c.id_curso, u.nombre, u.apellido, cur.nombre_curso as curso FROM certificados c INNER JOIN usuarios u ON c.id_usuario = u.id INNER JOIN cursos cur ON c.id_curso = cur.id;');
+  $resultcertificados = mysqli_query($conexion, "SELECT c.id, DATE_FORMAT(c.emision, '%d-%m-%Y') AS emision, c.id_usuario, c.id_curso, u.nombre, u.apellido, cur.nombre_curso as curso FROM certificados c INNER JOIN usuarios u ON c.id_usuario = u.id INNER JOIN cursos cur ON c.id_curso = cur.id;");
 
   $certificados = $resultcertificados->fetch_all(MYSQLI_ASSOC);
 
@@ -45,7 +45,7 @@ if (isset($_SESSION['logged_in'])) {
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href="panel.php">
+      <a class="navbar-brand m-0" href="panel">
         <img src="assets/img/logo-ap.png" class="navbar-brand-img h-100" alt="main_logo">
       </a>
     </div>
@@ -53,7 +53,7 @@ if (isset($_SESSION['logged_in'])) {
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="panel.php">
+          <a class="nav-link" href="panel">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>dashboard</title>
@@ -73,7 +73,7 @@ if (isset($_SESSION['logged_in'])) {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="usuarios.php">
+          <a class="nav-link" href="usuarios">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>Usuarios</title>
@@ -93,7 +93,7 @@ if (isset($_SESSION['logged_in'])) {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="cursos.php">
+          <a class="nav-link" href="cursos">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>Cursos</title>
@@ -113,7 +113,7 @@ if (isset($_SESSION['logged_in'])) {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="certificados.php">
+          <a class="nav-link active" href="certificados">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>Certificados</title>
@@ -134,7 +134,7 @@ if (isset($_SESSION['logged_in'])) {
           </a>
         </li>       
         <li class="nav-item">
-          <a class="nav-link  " href="./componentes/unlogin.php">
+          <a class="nav-link  " href="./componentes/unlogin">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="20px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>Cerrar sesión</title>
@@ -170,7 +170,7 @@ if (isset($_SESSION['logged_in'])) {
           </div>
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
-              <a href="./componentes/unlogin.php" class="nav-link text-body font-weight-bold px-0">
+              <a href="./componentes/unlogin" class="nav-link text-body font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
                 <span class="d-sm-inline d-none">Cerrar Sesión</span>
               </a>
@@ -189,7 +189,7 @@ if (isset($_SESSION['logged_in'])) {
       </div>
     </nav>
     <!-- End Navbar -->
-    <!-- Modal para agregar curso -->
+    <!-- Modal para agregar certificado -->
     <div class="modal fade" id="modalAgregar" tabindex="-1" role="dialog" aria-labelledby="modalAgregarLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -197,8 +197,8 @@ if (isset($_SESSION['logged_in'])) {
             <h5 class="modal-title" id="modalAgregarLabel">Agregar curso</h5>
           </div>
           <div class="modal-body">
-            <!-- Formulario para agregar curso -->
-            <form action="./componentes/agregar-certificado.php" method="post" id="formAgregarCertificado">
+            <!-- Formulario para agregar certificado -->
+            <form action="./componentes/agregar-certificado" method="post" id="formAgregarCertificado">
             <div class="form-group">
               <label for="modalModificarNombre">Codigo del Certificado</label>
               <input type="text" class="form-control" id="modalAgregarCodigo" name="id">
@@ -215,13 +215,17 @@ if (isset($_SESSION['logged_in'])) {
               </div>
               <div class="form-group">
                 <label for="modalAgregarCurso">Curso</label>
-                <select name="curso_id" id="modalAgregarCurso" class="form-control">
+                <select name="curso_id" id="modalAgregarUsuario" class="form-control">
                   <?php
                   foreach ($cursos as $curso) {
                     echo "<option value='" . $curso['id'] . "'>" . $curso['nombre_curso'] . "</option>";
                   }
                   ?>
                 </select>
+              </div>
+              <div class="form-group">
+                <label for="modalAgregarEmision">Fecha de Emision</label>
+                <input type="date" class="form-control" id="modalAgregarEmision" name="emision">
               </div>
               <div class="modal-footer" style="padding-bottom: 0 !important;">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -241,7 +245,7 @@ if (isset($_SESSION['logged_in'])) {
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-          <form action="./componentes/modificar-certificado.php" method="post" id="formModificarCertificado">
+          <form action="./componentes/modificar-certificado" method="post" id="formModificarCertificado">
             <input type="hidden" name="id" id="modalModificarId">
             <div class="form-group">
               <label for="modalModificarUsuario">Estudiante</label>
@@ -263,6 +267,10 @@ if (isset($_SESSION['logged_in'])) {
                 ?>
               </select>
             </div>
+            <div class="form-group">
+                <label for="modalAgregarEmision">Fecha de Emision</label>
+                <input type="date" class="form-control" id="modalModificarEmision" name="emision">
+              </div>
             <div class="modal-footer" style="padding-bottom: 0 !important;">
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
               <button type="submit" class="btn btn-primary">Modificar</button>
@@ -284,7 +292,7 @@ if (isset($_SESSION['logged_in'])) {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <a href="componentes/eliminar-certificado.php" class="btn btn-danger" id="btnConfirmarEliminacion">Confirmar</a>
+            <a href="componentes/eliminar-certificado" class="btn btn-danger" id="btnConfirmarEliminacion">Confirmar</a>
           </div>
         </div>
       </div>
@@ -311,6 +319,7 @@ if (isset($_SESSION['logged_in'])) {
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Codigo de Certificado</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estudiante</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Curso</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Emisión</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                     Acciones
                     </th>
@@ -324,9 +333,11 @@ if (isset($_SESSION['logged_in'])) {
                         echo '<td style="display:none;"><div class="d-flex px-3 py-1"><div class="d-flex flex-column justify-content-center">' . $certificado['id_usuario'] . '</div></div></td>';
                         echo '<td><div class="d-flex px-3 py-1"><div class="d-flex flex-column justify-content-center">' . $certificado['nombre'] . ' ' . $certificado['apellido'] .'</div></div></td>'; 
                         echo '<td style="display:none;"><div class="d-flex px-3 py-1"><div class="d-flex flex-column justify-content-center">' . $certificado['id_curso'] . '</div></div></td>';
-                        echo '<td><div class="d-flex px-3 py-1"><div class="d-flex flex-column justify-content-center">' . $certificado['curso'] . '</div></div></td>';                           
+                        echo '<td><div class="d-flex px-3 py-1"><div class="d-flex flex-column justify-content-center">' . $certificado['curso'] . '</div></div></td>';
+                        echo '<td><div class="d-flex px-3 py-1"><div class="d-flex flex-column justify-content-center">' . $certificado['emision'] . '</div></div></td>';
                         echo '<td><div class="d-flex px-3 py-1"><div class="d-flex gap-3">';
-                        echo '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalModificarCertificados" data-id="' . $certificado['id'] . '" data-usuario="' . $certificado['id_usuario'] . '" data-curso="' . $certificado['id_curso'] . '">Modificar&nbsp;</button> ';
+                        echo '<a href="/componentes/generar-certificado.php?id=' . $certificado['id'] . '" class="btn btn-warning" target="_blank">Ver certificado</a>';
+                        echo '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalModificarCertificados" data-id="' . $certificado['id'] . '" data-usuario="' . $certificado['id_usuario'] . '" data-curso="' . $certificado['id_curso'] . '" data-emision="' . $certificado['emision'] . '">Modificar&nbsp;</button> ';
                         echo '<button type="button" class="btn btn-danger btn-delete" id="btn-delete-course" data-bs-toggle="modal" data-bs-target="#modalConfirmarEliminacion" data-id="' . $certificado['id'] . '">Eliminar</button>';
                         echo '</div></div></td>';
                         echo '</tr>';
@@ -370,12 +381,13 @@ if (isset($_SESSION['logged_in'])) {
   <script src="assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
   <script src="assets/js/functions-certificados.js"></script>
+  
 </body>
 </html>
 <?php
 } else {
     // Redirige al usuario a la página de inicio de sesión
-    header("Location: login.php");
+    header("Location: login");
     exit;
 }
 ?>

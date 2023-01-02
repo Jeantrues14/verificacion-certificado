@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";
-$user = "root";
-$pass = "";
-$dbname = "ctf_acreditaciones";
+$user = "u544895934_dbcertifi";
+$pass = "3bJ?ze9hvs^f";
+$dbname = "u544895934_dbcertifi";
 
 // Establecemos una conexión a la base de datos
 $conexion = mysqli_connect($host, $user, $pass, $dbname);

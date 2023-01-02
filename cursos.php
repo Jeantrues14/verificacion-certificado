@@ -37,12 +37,14 @@ if (isset($_SESSION['logged_in'])) {
   $resultcursos = mysqli_query($conexion, 'SELECT * FROM cursos');
 
   $cursos = $resultcursos->fetch_all(MYSQLI_ASSOC);
+  
+  $add_course = "/componentes/agregar-curso.php";
 
 ?>
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href="panel.php">
+      <a class="navbar-brand m-0" href="panel">
         <img src="assets/img/logo-ap.png" class="navbar-brand-img h-100" alt="main_logo">
       </a>
     </div>
@@ -50,7 +52,7 @@ if (isset($_SESSION['logged_in'])) {
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="panel.php">
+          <a class="nav-link" href="panel">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>dashboard</title>
@@ -70,7 +72,7 @@ if (isset($_SESSION['logged_in'])) {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="usuarios.php">
+          <a class="nav-link" href="usuarios">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>Usuarios</title>
@@ -90,7 +92,7 @@ if (isset($_SESSION['logged_in'])) {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="cursos.php">
+          <a class="nav-link active" href="cursos">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>Cursos</title>
@@ -131,7 +133,7 @@ if (isset($_SESSION['logged_in'])) {
           </a>
         </li>       
         <li class="nav-item">
-          <a class="nav-link  " href="./componentes/unlogin.php">
+          <a class="nav-link  " href="./componentes/unlogin">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="20px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>Cerrar sesión</title>
@@ -167,7 +169,7 @@ if (isset($_SESSION['logged_in'])) {
           </div>
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
-              <a href="./componentes/unlogin.php" class="nav-link text-body font-weight-bold px-0">
+              <a href="./componentes/unlogin" class="nav-link text-body font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
                 <span class="d-sm-inline d-none">Cerrar Sesión</span>
               </a>
@@ -195,7 +197,7 @@ if (isset($_SESSION['logged_in'])) {
           </div>
           <div class="modal-body">
             <!-- Formulario para agregar curso -->
-            <form method="post" action="./componentes/agregar-curso.php">
+            <form method="post" action="<?php echo $add_course; ?>">
               <div class="form-group">
                 <label for="modalAgregarCurso">Nombre del curso</label>
                 <input type="text" class="form-control" id="modalAgregarCurso" name="nombre_curso" required>
