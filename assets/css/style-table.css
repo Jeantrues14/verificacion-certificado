@@ -1,0 +1,46 @@
+.justify-content-between {
+    justify-content: space-between !important;
+    margin: 0 20px;
+}
+
+div#miTabla_length label {
+    font-size: 14px;
+}
+
+div#miTabla_length label select {
+    border-radius: 7px;
+    margin: 0 3px;
+}
+
+div#miTabla_filter label {
+    font-size: 14px;
+}
+
+div#miTabla_filter label input {
+    border-radius: 7px;
+    border: 1px solid black;
+    transition: 0.5s ease;
+}
+
+div#miTabla_filter label input:focus {
+    outline: none;
+    border: 1px solid #cb0c9f;
+}
+
+div#miTabla_info {
+    margin: 0 20px;
+}
+
+a#miTabla_first, a#miTabla_previous, a#miTabla_next, a#miTabla_last {
+    margin: 0 5px;
+    cursor:pointer;
+}
+
+a#miTabla_first, a#miTabla_last{
+    display:none;
+}
+
+div#miTabla_paginate {
+    margin: 10px 20px;
+    cursor:pointer;
+}

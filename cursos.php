@@ -26,6 +26,12 @@ if (isset($_SESSION['logged_in'])) {
   <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="assets/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
+  <link id="pagestyle" href="assets/css/style-table.css" rel="stylesheet" />
+  <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css"/>
+    <!-- DataTables JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -291,18 +297,18 @@ if (isset($_SESSION['logged_in'])) {
             </div>
             <div class="card-body px-0 pb-2">
               <div class="table-responsive">
-                <table class="table align-items-center mb-0">
-                  <thead>
-                    <tr>
+               <?php
+                echo '<table id="miTabla" class="table align-items-center mb-0">';
+                echo '<thead>
+                  <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre del Curso</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                     Acciones
                     </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php                    
+                  </tr>
+                </thead>
+                <tbody>';                   
                       foreach ($cursos as $curso) {
                         echo '<tr>';
                         echo '<td><div class="d-flex px-3 py-1"><div class="d-flex flex-column justify-content-center">' . $curso['id'] . '</div></div></td>';
@@ -315,9 +321,9 @@ if (isset($_SESSION['logged_in'])) {
                         echo '</div></div></td>';
                         echo '</tr>';
                       }
+                      echo '</tbody>
+                    </table>';
                     ?>
-                  </tbody>
-                </table>
               </div>
             </div>
           </div>
@@ -352,8 +358,20 @@ if (isset($_SESSION['logged_in'])) {
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
   <script src="assets/js/functions-course.js"></script>
+  <script>
+    $(document).ready(function() {
+        $('#miTabla').DataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+            },
+            "pagingType": "full_numbers",
+            "searching": true,
+            "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "Todos"] ],
+            "dom": '<"d-flex justify-content-between"lfB><rtip>'
+        } );
+    } );
+  </script>
 </body>
 </html>
 <?php

@@ -22,36 +22,38 @@ $result = mysqli_query($conexion, $query);
 if (mysqli_num_rows($result) > 0) {
     // Muestra los resultados debajo del ID del certificado
 ?>
+<span style="text-align:center;color:white;display: flex;justify-content: center;margin: 15px 0;font-weight: 500;">Código o DNI Buscado: <?php echo $certificate_id; ?></span>
         <div class="card">
             <div class="card-body"> 
-                <div class="table-responsive" >                   
-                    <table class="table table-bordered" style="margin:0">
-                            <thead>
-                                <tr>
-                                <th scope="col" width="250px">Codigo de Certificado</th>
-                                <th scope="col">Estudiante</th>
-                                <th scope="col">Curso Finalizado</th>
-                                <th scope="col">Emisión</th>
-                                <th scope="col" width="230px">Descargar Certificado</th>
-                            </thead>
-                            <tbody>
-                              <?php
-                              while ($row = mysqli_fetch_assoc($result)) {
-                                $id_cert = $row['id'];
-                                $user_name = $row['nombre'] . " " . $row['apellido'];
-                                $course_name = $row['nombre_curso'];
-                                $emision = $row ['emision'];
-                                echo '<tr>';
-                                echo '<td>' . $id_cert . '</td>';
-                                echo '<td>' . $user_name . '</td>';
-                                echo '<td>' . $course_name . '</td>';
-                                echo '<td>' . $emision . '</td>';
-                                echo '<td><a href="/componentes/generar-certificado.php?id=' . $id_cert . '" class="btn btn-primary" target="_blank">Descargar certificado</a></td>';
-                                echo '</tr>';
-                              }
-                              ?>
-                            </tbody>
-                    </table>
+               <div class="table-responsive">
+                                <?php
+                                echo '<table id="miTabla" class="table align-items-center mb-0">';
+                                echo '<thead>
+                                  <tr>
+                                    <th scope="col" width="240px">Codigo de Certificado</th>
+                                    <th scope="col">Estudiante</th>
+                                    <th scope="col">Curso Finalizado</th>
+                                    <th scope="col">Emisión</th>
+                                    <th scope="col" width="250px">Descargar Certificado</th>
+                                  </tr>
+                                </thead>
+                                <tbody>';
+                                  while ($row = mysqli_fetch_assoc($result)) {
+                                    $id_cert = $row['id'];
+                                    $user_name = $row['nombre'] . " " . $row['apellido'];
+                                    $course_name = $row['nombre_curso'];
+                                    $emision = $row ['emision'];
+                                    echo '<tr>';
+                                    echo '<td>' . $id_cert . '</td>';
+                                    echo '<td>' . $user_name . '</td>';
+                                    echo '<td>' . $course_name . '</td>';
+                                    echo '<td>' . $emision . '</td>';
+                                    echo '<td><a href="/componentes/generar-certificado.php?id=' . $id_cert . '" class="btn btn-primary" target="_blank">Descargar certificado</a></td>';
+                                    echo '</tr>';
+                                  }
+                                echo '</tbody>
+                                </table>';
+                                ?>
                 </div>
             </div>
         </div>
@@ -63,8 +65,7 @@ if (mysqli_num_rows($result) > 0) {
             <div class="card-body">
             <figure class="text-center">
                 <blockquote class="blockquote">
-                    <p style="padding-top:20px;color:black;font-weight:400">No se han encontrado resultados para el ID del certificado especificado.</p>
-                    <p><?php echo $query; ?></p>
+                    <p style="padding-top:20px;color:black;font-weight:400">No se han encontrado resultados para el ID del certificado o DNI del estudiante ingresado.</p>
                 </blockquote>
             </figure>
             </div>
