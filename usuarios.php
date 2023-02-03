@@ -201,10 +201,14 @@ if (isset($_SESSION['logged_in'])) {
           </div>
           <div class="modal-body">
             <!-- Formulario para agregar usuario -->
-            <form method="post" action="./componentes/agregar-usuario.php">
-              <div class="form-group">
-                <label for="modalAgregarUsuario">Nombre de Usuario</label>
-                <input type="text" class="form-control" id="modalAgregarUsuario" name="usuario" required readonly>
+            <form method="post" action="./componentes/agregar-usuario.php">              
+            <div class="form-group">
+                <label for="modalAgregarRol">Rol</label>
+                <select class="form-control" id="modalAgregarRol" name="rol" required>
+                  <option selected disabled="disabled">Selecciona Rol</option>
+                  <option value="administrador">Administrador</option>
+                  <option value="estudiante">Estudiante</option>
+                </select>
               </div>
               <div class="form-group">
                 <label for="modalAgregarNombre">Nombre</label>
@@ -214,14 +218,14 @@ if (isset($_SESSION['logged_in'])) {
                 <label for="modalAgregarApellido">Apellido</label>
                 <input type="text" class="form-control" id="modalAgregarApellido" name="apellido" required>
               </div>
-              <div class="form-group">
-                <label for="modalAgregarRol">Rol</label>
-                <select class="form-control" id="modalAgregarRol" name="rol" required>
-                  <option disabled="disabled">Selecciona Rol</option>
-                  <option value="administrador">Administrador</option>
-                  <option value="estudiante" selected>Estudiante</option>
-                </select>
+              <div class="form-group" id="groupAddUsuario">
+                <label for="modalAgregarUsuario">Nombre de Usuario</label>
+                <input type="text" class="form-control" id="modalAgregarUsuario" name="usuario" required readonly>
               </div>
+              <div class="form-group" id="groupAddPassword">
+                <label for="modalAgregarPassword">Contraseña</label>
+                <input type="password" class="form-control" id="modalAgregarPassword" name="password">
+              </div>              
               <div class="modal-footer" style="padding-bottom: 0 !important;">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                 <button type="submit" class="btn btn-warning">Agregar</button>
@@ -243,21 +247,29 @@ if (isset($_SESSION['logged_in'])) {
           <form action="./componentes/modificar-usuario.php" method="post">
             <input type="hidden" name="id" id="modalModificarId">
             <div class="form-group">
-              <label for="modalModificarNombre">Nombre</label>
-              <input type="text" class="form-control" id="modalModificarNombre" name="nombre">
-            </div>
-            <div class="form-group">
-              <label for="modalModificarApellido">Apellido</label>
-              <input type="text" class="form-control" id="modalModificarApellido" name="apellido">
-            </div>
-            <div class="form-group">
             <label for="modalModificarRol">Rol</label>
               <select class="form-select" id="modalModificarRol" name="rol">
                 <option selected>Selecciona el Rol</option>
                 <option value="administrador">Administrador</option>
                 <option value="estudiante">Estudiante</option>
               </select>
-            </div>            
+            </div> 
+            <div class="form-group" id="groupModUsuario">
+                <label for="modalModificarUsuario">Nombre de Usuario</label>
+                <input type="text" class="form-control" id="modalModificarUsuario" name="usuario">
+              </div>
+              <div class="form-group" id="groupModPassword">
+                <label for="modalModificarPassword">Contraseña</label>
+                <input type="text" class="form-control" id="modalModificarPassword" name="password">
+            </div>
+            <div class="form-group">
+              <label for="modalModificarNombre">Nombre</label>
+              <input type="text" class="form-control" id="modalModificarNombre" name="nombre">
+            </div>
+            <div class="form-group">
+              <label for="modalModificarApellido">Apellido</label>
+              <input type="text" class="form-control" id="modalModificarApellido" name="apellido">
+            </div>                       
             <div class="modal-footer" style="padding-bottom: 0 !important;">
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
               <button type="submit" class="btn btn-primary">Modificar</button>
@@ -329,6 +341,8 @@ if (isset($_SESSION['logged_in'])) {
                 echo '<thead>
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 d-none">Usuario</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 d-none">Password</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Apellido</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rol</th>
@@ -339,11 +353,13 @@ if (isset($_SESSION['logged_in'])) {
                 foreach ($usuarios as $usuario) {
                         echo '<tr>';
                         echo '<td><div class="d-flex px-3 py-1"><div class="d-flex flex-column justify-content-center">' . $usuario['id'] . '</div></div></td>';
+                        echo '<td class="d-none"><div class="d-flex px-3 py-1"><div class="d-flex flex-column justify-content-center">' . $usuario['usuario'] . '</div></div></td>';
+                        echo '<td class="d-none"><div class="d-flex px-3 py-1"><div class="d-flex flex-column justify-content-center">' . $usuario['password'] . '</div></div></td>';
                         echo '<td><div class="d-flex px-3 py-1"><div class="d-flex flex-column justify-content-center" style="text-transform: capitalize;">' . $usuario['nombre'] . '</div></div></td>';
                         echo '<td><div class="d-flex px-3 py-1"><div class="d-flex flex-column justify-content-center" style="text-transform: capitalize;">' . $usuario['apellido'] . '</div></div></td>';
                         echo '<td><div class="d-flex px-3 py-1"><div class="d-flex flex-column justify-content-center" style="text-transform: capitalize;">' . $usuario['rol'] . '</div></div></td>';
                         echo '<td><div class="d-flex px-3 py-1"><div class="d-flex">';
-                        echo '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalModificar" data-id="' . $usuario['id'] . '" data-nombre="' . $usuario['nombre'] . '" data-apellido="' . $usuario['apellido'] . '" data-rol="' . $usuario['rol'] . '">
+                        echo '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalModificar" data-id="' . $usuario['id'] . '" data-usuario="' . $usuario['usuario'] . '" data-password="' . $usuario['password'] . '" data-nombre="' . $usuario['nombre'] . '" data-apellido="' . $usuario['apellido'] . '" data-rol="' . $usuario['rol'] . '">
                         Modificar
                       </button>&nbsp;';
                         echo '<button type="button" class="btn btn-danger btn-delete" data-bs-toggle="modal" data-bs-target="#modalConfirmarEliminacion" data-id="' . $usuario['id'] . '">Eliminar</button>';

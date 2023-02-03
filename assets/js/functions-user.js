@@ -45,6 +45,8 @@ $(document).ready(function() {
       var nombre = button.data('nombre')
       var apellido = button.data('apellido')
       var rol = button.data('rol')
+      var usuario = button.data('usuario')
+      var password = button.data('password')
 
       // Asigna los datos al formulario del modal
       var modal = $(this)
@@ -52,9 +54,28 @@ $(document).ready(function() {
       modal.find('#modalModificarNombre').val(nombre)
       modal.find('#modalModificarApellido').val(apellido)
       modal.find('#modalModificarRol').val(rol)
+      modal.find('#modalModificarUsuario').val(usuario)
+      modal.find('#modalModificarPassword').val(password)
+
+      if ($('#modalModificarRol').val() === 'administrador') {
+        $('#groupModUsuario').show();
+        $('#groupModPassword').show();
+      } else {        
+        $('#groupModUsuario').hide();
+        $('#groupModPassword').hide();
+      }
+
     })
   });
 
-
-  
- 
+  $(document).ready(function(){
+    $('#modalAgregarRol').change(function() {
+      if($(this).val() === "administrador") {
+        $('#groupAddUsuario').show();
+        $('#groupAddPassword').show();
+      } else {
+        $('#groupAddUsuario').hide();
+        $('#groupAddPassword').hide();
+      }
+    });
+  });

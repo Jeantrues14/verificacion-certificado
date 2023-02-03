@@ -48,7 +48,7 @@ if (mysqli_num_rows($result) > 0) {
                                     echo '<td>' . $user_name . '</td>';
                                     echo '<td>' . $course_name . '</td>';
                                     echo '<td>' . $emision . '</td>';
-                                    echo '<td><a href="/componentes/generar-certificado.php?id=' . $id_cert . '" class="btn btn-primary" target="_blank">Descargar certificado</a></td>';
+                                    echo '<td><a href="componentes/generar-certificado.php?id=' . $id_cert . '" class="btn btn-primary" target="_blank">Descargar certificado</a></td>';
                                     echo '</tr>';
                                   }
                                 echo '</tbody>

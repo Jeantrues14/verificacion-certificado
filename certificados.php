@@ -340,7 +340,7 @@ if (isset($_SESSION['logged_in'])) {
                         echo '<td><div class="d-flex px-3 py-1"><div class="d-flex flex-column justify-content-center">' . $certificado['curso'] . '</div></div></td>';
                         echo '<td><div class="d-flex px-3 py-1"><div class="d-flex flex-column justify-content-center">' . $certificado['emision'] . '</div></div></td>';
                         echo '<td><div class="d-flex px-3 py-1"><div class="d-flex gap-3">';
-                        echo '<a href="/componentes/generar-certificado.php?id=' . $certificado['id'] . '" class="btn btn-warning" target="_blank">Ver certificado</a>';
+                        echo '<a href="componentes/generar-certificado.php?id=' . $certificado['id'] . '" class="btn btn-warning" target="_blank">Ver certificado</a>';
                         echo '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalModificarCertificados" data-id="' . $certificado['id'] . '" data-usuario="' . $certificado['id_usuario'] . '" data-curso="' . $certificado['id_curso'] . '" data-emision="' . $certificado['emision'] . '">Modificar&nbsp;</button> ';
                         echo '<button type="button" class="btn btn-danger btn-delete" id="btn-delete-course" data-bs-toggle="modal" data-bs-target="#modalConfirmarEliminacion" data-id="' . $certificado['id'] . '">Eliminar</button>';
                         echo '</div></div></td>';

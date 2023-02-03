@@ -8,9 +8,11 @@ $id = $_POST['id'];
 $nombre = $_POST['nombre'];
 $apellido = $_POST['apellido'];
 $rol = $_POST['rol'];
+$usuario = $_POST['usuario'];
+$password = $_POST['password'];
 
 // Preparar la consulta
-$query = "UPDATE usuarios SET nombre='$nombre', apellido='$apellido', rol='$rol' WHERE id=$id";
+$query = "UPDATE usuarios SET nombre='$nombre', apellido='$apellido', usuario='$usuario', rol='$rol', password='$password' WHERE id=$id";
 
 // Ejecutar la consulta
 if (mysqli_query($conexion, $query)) {

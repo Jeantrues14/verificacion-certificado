@@ -20,7 +20,7 @@ $sql = "SELECT c.id, DATE_FORMAT(c.emision, '%d-%m-%Y') AS emision, u.nombre, u.
 $result = mysqli_query($conexion, $sql);
 $certificate_data = mysqli_fetch_assoc($result);
 
-$text = 'https://certificado.acreditacionesprofesionales.com/componentes/generar-certificado.php?id=' . $certificate_id;
+$text = 'http://localhost/certificado/componentes/generar-certificado.php?id=' . $certificate_id;
 QRcode::png($text, 'qr.png', QR_ECLEVEL_L, 4);
 
 // Crea una nueva instancia de la clase TCPDF
@@ -72,8 +72,15 @@ $pdf->Cell(0, 0, "Fecha de Emisión: " . $certificate_data['emision'], 0, 1, 'C'
 
 $pdf->Image('qr.png', 245, 30, 30, 30, '', '', '', false, 300, '', false, false, 0);
 
-// Output the document
-$pdf->Output('certificado.pdf', 'I');
+// Genera el archivo PDF
+$filepath = dirname(__FILE__) . '/pdfcertificados/certificado-'. $certificate_data['nombre'] . '-' . $certificate_data['apellido'] .'-'.$certificate_data['nombre_curso'] . '.pdf';
+$pdf->Output($filepath, 'F');
+$file = 'pdfcertificados/certificado-'. $certificate_data['nombre'] . '-' . $certificate_data['apellido'] .'-'.$certificate_data['nombre_curso'] . '.pdf';
+header('Content-Type: application/pdf');
+header('Content-Disposition: inline; filename="' . $file . '"');
+header('Content-Transfer-Encoding: binary');
+header('Accept-Ranges: bytes');
+readfile($file);
 
 // Cierra la conexión a la base de datos
 mysqli_close($conexion);
